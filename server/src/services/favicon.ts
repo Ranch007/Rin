@@ -110,13 +110,14 @@ export function FaviconService(): Hono {
 
                 if (response) {
                     c.header("Content-Type", mimeType);
-                    c.header("Cache-Control", "public, max-age=31536000");
+                    c.header("Cache-Control", "no-cache");
                     return c.body(await profileAsync(c, 'favicon_original_body', () => response.arrayBuffer()));
                 }
             }
 
-            c.status(404);
-            return c.text("Original favicon not found");
+            // c.status(404);
+            // return c.text("Original favicon not found");
+            return c.redirect("/favicon", 302)
         } catch (error) {
             if (error instanceof Error) {
                 c.status(500);
