@@ -94,6 +94,10 @@ export async function uploadFavicon(file: File, t: TFunction, showAlert: (messag
   });
 
   if (response.ok) {
+    const icon = document.querySelector<HTMLLinkElement>('link[rel="icon"]');
+      if (icon) {
+      icon.href = `/favicon/original?v=${Date.now()}`;
+    }
     showAlert(t("settings.favicon.update.success"));
     return;
   }
